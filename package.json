@@ -1,0 +1,22 @@
+{
+  "name": "blog-backend",
+  "version": "0.0.0",
+  "description": "Backend for simple blog system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mpolosak/blog-backend.git"
+  },
+  "author": "Michał Połosak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mpolosak/blog-backend/issues"
+  },
+  "homepage": "https://github.com/mpolosak/blog-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
