@@ -1,4 +1,3 @@
-require('dotenv').config()
 const mongoClient = require('mongodb').MongoClient
 const mongoUrl = process.env.MONGO_URL
 const dbName = process.env.DB_NAME

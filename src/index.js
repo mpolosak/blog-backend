@@ -7,6 +7,7 @@ const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 
 const { BlogInfo } = require('./blog-info.js')
+const { getPosts, Post } = require('./posts.js')
 
 const main = async () => {
     const database = await require('./database.js').connect()
@@ -16,13 +17,23 @@ const main = async () => {
             title: String
             description: String
         }
+        type  Post{
+            _id: ID
+            title: String
+            content: String
+            date: String
+        }
         type Query {
-            info: BlogInfo 
+            info: BlogInfo
+            getPosts(latest: Int, title: String): [Post]
         }
     `);
     const root = {
         info: () => {
             return new BlogInfo(database)
+        },
+        getPosts: (params) => {
+            return getPosts(database, params)
         }
     };
 
