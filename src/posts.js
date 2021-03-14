@@ -1,3 +1,5 @@
+const ObjectID = require('mongodb').ObjectID
+
 const getPosts = async (database, params) => {
   const collection = database.collection('posts')
   const latest = params.latest
@@ -18,5 +20,15 @@ const addPost = async (database, input) => {
   return output
 }
 
+const modifyPost = async (database, input) => {
+  const collection = database.collection('posts')
+  const _id = input._id
+  delete input._id
+  const response = await collection.findOneAndUpdate({"_id":ObjectID(_id)}, {$set:input}, {returnOriginal: false})
+  console.log(response)
+  return response.value
+}
+
 exports.getPosts = getPosts
 exports.addPost = addPost
+exports.modifyPost = modifyPost
