@@ -6,7 +6,7 @@ const port = process.env.PORT ?? 3000
 const { graphqlHTTP } = require('express-graphql')
 const { buildSchema } = require('graphql')
 
-const { BlogInfo } = require('./blog-info.js')
+const { getInfo } = require('./blog-info.js')
 const { getPosts } = require('./posts.js')
 
 const main = async () => {
@@ -30,7 +30,7 @@ const main = async () => {
     `)
   const root = {
     info: () => {
-      return new BlogInfo(database)
+      return getInfo(database)
     },
     getPosts: (params) => {
       return getPosts(database, params)
