@@ -7,7 +7,7 @@ const { graphqlHTTP } = require('express-graphql')
 const { buildSchema } = require('graphql')
 
 const { getInfo } = require('./blog-info.js')
-const { getPosts } = require('./posts.js')
+const { getPosts, addPost } = require('./posts.js')
 
 const main = async () => {
   const database = await require('./database.js').connect()
@@ -27,6 +27,9 @@ const main = async () => {
             info: BlogInfo
             getPosts(latest: Int, title: String): [Post]
         }
+        type Mutation {
+            addPost(title: String, content: String): Post
+        }
     `)
   const root = {
     info: () => {
@@ -34,6 +37,9 @@ const main = async () => {
     },
     getPosts: (params) => {
       return getPosts(database, params)
+    },
+    addPost: (input) => {
+      return addPost(database, input)
     }
   }
 

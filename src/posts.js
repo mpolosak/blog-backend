@@ -9,4 +9,14 @@ const getPosts = async (database, params) => {
   return posts
 }
 
+const addPost = async (database, input) => {
+  const collection = database.collection('posts')
+  input.date = new Date()
+  const result = await collection.insertOne(input)
+  const output = { _id: result.insertedId, ...input }
+  output.date = output.date.toJSON()
+  return output
+}
+
 exports.getPosts = getPosts
+exports.addPost = addPost
