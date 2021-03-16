@@ -8,6 +8,7 @@ const { buildSchema } = require('graphql')
 
 const { getInfo } = require('./blog-info.js')
 const { getPosts, addPost, modifyPost } = require('./posts.js')
+const { getUser, searchUsers } = require('./users.js')
 
 const main = async () => {
   const database = await require('./database.js').connect()
@@ -23,9 +24,17 @@ const main = async () => {
             content: String
             date: String
         }
+        type User{
+            _id: ID
+            name: String
+            description: String
+            signup_date: String
+        }
         type Query {
             info: BlogInfo
             getPosts(latest: Int, title: String): [Post]
+            getUser(_id: ID!): User
+            searchUsers(name: String): [User]
         }
         type Mutation {
             addPost(title: String, content: String): Post
@@ -44,6 +53,12 @@ const main = async () => {
     },
     modifyPost: (input) => {
       return modifyPost(database, input)
+    },
+    getUser: (params) => {
+      return getUser(database, params)
+    },
+    searchUsers: (params) => {
+      return searchUsers(database, params)
     }
   }
 
