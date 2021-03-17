@@ -2,9 +2,9 @@
   "name": "blog-backend",
   "version": "0.0.0",
   "description": "Backend for simple blog system",
-  "main": "src/index.js",
+  "main": "src/main.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node .",
     "eslint": "npx eslint src/*",
     "eslint-fix": "npx eslint src/* --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
