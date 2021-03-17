@@ -7,7 +7,7 @@ const { graphqlHTTP } = require('express-graphql')
 const { buildSchema } = require('graphql')
 
 const { getInfo } = require('./blog-info.js')
-const { getPosts, addPost, modifyPost } = require('./posts.js')
+const { getPost, searchPosts, addPost, modifyPost } = require('./posts.js')
 const { getUser, searchUsers } = require('./users.js')
 
 const main = async () => {
@@ -32,7 +32,8 @@ const main = async () => {
         }
         type Query {
             info: BlogInfo
-            getPosts(latest: Int, title: String): [Post]
+            getPost(_id: ID!): Post
+            searchPosts(text: String, limit: Int, skip: Int): [Post]
             getUser(_id: ID!): User
             searchUsers(name: String): [User]
         }
@@ -45,8 +46,11 @@ const main = async () => {
     info: () => {
       return getInfo(database)
     },
-    getPosts: (params) => {
-      return getPosts(database, params)
+    getPost: (params) => {
+      return getPost(database, params)
+    },
+    searchPosts: (params) => {
+      return searchPosts(database, params)
     },
     addPost: (input) => {
       return addPost(database, input)
