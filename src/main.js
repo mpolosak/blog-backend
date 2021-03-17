@@ -31,7 +31,7 @@ const main = async () => {
             signup_date: String
         }
         type Query {
-            info: BlogInfo
+            getInfo: BlogInfo
             getPost(_id: ID!): Post
             searchPosts(text: String, limit: Int, skip: Int): [Post]
             getUser(_id: ID!): User
@@ -43,7 +43,7 @@ const main = async () => {
         }
     `)
   const root = {
-    info: () => {
+    getInfo: () => {
       return getInfo(database)
     },
     getPost: (params) => {
