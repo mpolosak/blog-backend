@@ -1,20 +1,20 @@
 const ObjectID = require('mongodb').ObjectID
 
-const getPost = async (database, {_id}) => {
+const getPost = async (database, { _id }) => {
   const collection = database.collection('posts')
-  let post = await collection.findOne({"_id":ObjectID(_id)})
+  const post = await collection.findOne({ _id: ObjectID(_id) })
   post.date = post.date.toJSON()
   return post
 }
 
-const searchPosts = async (database, {text, limit=0, skip=0}) => {
+const searchPosts = async (database, { text, limit = 0, skip = 0 }) => {
   const collection = database.collection('posts')
-  const query = text ? {"$text":{"$search": text}} : {}
-  let posts = await collection.find(query).limit(limit).skip(skip).toArray()
+  const query = text ? { $text: { $search: text } } : {}
+  const posts = await collection.find(query).limit(limit).skip(skip).toArray()
   posts.forEach(element => {
-    element.date = element.date.toJSON()    
-  });
-  return posts 
+    element.date = element.date.toJSON()
+  })
+  return posts
 }
 
 const addPost = async (database, input) => {
@@ -30,7 +30,7 @@ const modifyPost = async (database, input) => {
   const collection = database.collection('posts')
   const _id = input._id
   delete input._id
-  const response = await collection.findOneAndUpdate({"_id":ObjectID(_id)}, {$set:input}, {returnOriginal: false})
+  const response = await collection.findOneAndUpdate({ _id: ObjectID(_id) }, { $set: input }, { returnOriginal: false })
   console.log(response)
   return response.value
 }
