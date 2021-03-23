@@ -9,6 +9,7 @@ const { buildSchema } = require('graphql')
 const { getInfo } = require('./blog-info.js')
 const { getPost, searchPosts, addPost, modifyPost } = require('./posts.js')
 const { getUser, searchUsers } = require('./users.js')
+const { signUp } = require('./auth')
 
 const main = async () => {
   const database = await require('./database.js').connect()
@@ -40,6 +41,7 @@ const main = async () => {
         type Mutation {
             addPost(title: String, content: String): Post
             modifyPost(_id: ID!, title: String, content: String): Post
+            signUp(email: String, password: String): ID 
         }
     `)
   const root = {
@@ -63,6 +65,9 @@ const main = async () => {
     },
     searchUsers: (params) => {
       return searchUsers(database, params)
+    },
+    signUp: (input) => {
+      return signUp(database, input)
     }
   }
 
