@@ -12,8 +12,8 @@ const signUp = async (database, {email, password}) => {
     const hashed_password = crypto.scryptSync(password, salt, 64)
     const input = {
         signup_date: new Date(),
+        email,
         credentials:{
-            email,
             salt,
             password: hashed_password
         }
