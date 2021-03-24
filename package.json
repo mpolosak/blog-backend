@@ -21,10 +21,12 @@
   "homepage": "https://github.com/mpolosak/blog-backend#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "email-validator-pro": "^1.0.1",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
     "graphql": "^15.5.0",
-    "mongodb": "^3.6.4"
+    "mongodb": "^3.6.4",
+    "password-validator": "^5.1.1"
   },
   "devDependencies": {
     "eslint": "^7.22.0",

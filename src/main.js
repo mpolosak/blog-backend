@@ -41,7 +41,7 @@ const main = async () => {
         type Mutation {
             addPost(title: String, content: String): Post
             modifyPost(_id: ID!, title: String, content: String): Post
-            signUp(email: String, password: String): ID 
+            signUp(email: String!, password: String!): ID 
         }
     `)
   const root = {
