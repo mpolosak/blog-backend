@@ -24,6 +24,7 @@
     "email-validator-pro": "^1.0.1",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
+    "express-jwt": "^6.0.0",
     "graphql": "^15.5.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.4",

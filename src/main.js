@@ -11,6 +11,8 @@ const { getPost, searchPosts, addPost, modifyPost } = require('./posts.js')
 const { getUser, searchUsers } = require('./users.js')
 const { signUp, signIn } = require('./auth')
 
+const jwt = require('express-jwt')
+
 const main = async () => {
   const database = await require('./database.js').connect()
 
@@ -74,6 +76,12 @@ const main = async () => {
       return signIn(database, input)
     }
   }
+
+  app.use(jwt({
+    secret: process.env.TOKEN_SECRET,
+    algorithms: ['HS256'],
+    credentialsRequired: false
+  }))
 
   app.use('/', graphqlHTTP({
     schema: schema,
