@@ -61,8 +61,8 @@ const main = async () => {
     addPost: (input, request) => {
       return addPost(database, input, request)
     },
-    modifyPost: (input) => {
-      return modifyPost(database, input)
+    modifyPost: (input, request) => {
+      return modifyPost(database, input, request)
     },
     getUser: (params) => {
       return getUser(database, params)
