@@ -34,25 +34,36 @@ const modifyPost = async (database, input, { user }) => {
   if( !user ){
     throw Error('You don`t have permisions to modify this post')
   }
+  
   const collection = database.collection('posts')
-  const { _id, author } = await collection.findOne({  _id: ObjectID(input._id) }, {
-    projection: {
-      author: 1
-    }
-  })
+
+  const _id = input._id
   delete input._id
-  if(!_id){
-    throw Error('Post with this id doesn`t exist')
-  }
+
+  const author = await getPostAuthor(collection, _id)
+
   if(author != user._id){
     throw Error('You don`t have permisions to modify this post')
   }
+
   const response = await collection.findOneAndUpdate(
     { _id: ObjectID(_id) },
     { $set: input },
     { returnOriginal: false }
   )
   return response.value
+}
+
+const getPostAuthor = async (collection, id) => {
+  const { _id, author } = await collection.findOne({  _id: ObjectID(id) }, {
+    projection: {
+      author: 1
+    }
+  })
+  if(!_id){
+    throw Error('Post with this id doesn`t exist')
+  }
+  return author
 }
 
 exports.getPost = getPost
