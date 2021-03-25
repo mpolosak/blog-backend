@@ -7,9 +7,12 @@ const getPost = async (database, { _id }) => {
   return post
 }
 
-const searchPosts = async (database, { text, limit = 0, skip = 0 }) => {
+const searchPosts = async (database, { text, author, limit = 0, skip = 0 }) => {
   const collection = database.collection('posts')
-  const query = text ? { $text: { $search: text } } : {}
+  let query = text ? { $text: { $search: text } } : {}
+  if(author){
+    query = { ...query, author }
+  }
   const posts = await collection.find(query).limit(limit).skip(skip).toArray()
   posts.forEach(element => {
     element.date = element.date.toJSON()

@@ -37,7 +37,7 @@ const main = async () => {
         type Query {
             getInfo: BlogInfo
             getPost(_id: ID!): Post
-            searchPosts(text: String, limit: Int, skip: Int): [Post]
+            searchPosts(text: String, author: ID, limit: Int, skip: Int): [Post]
             getUser(_id: ID!): User
             searchUsers(name: String): [User]
         }
