@@ -17,9 +17,13 @@ const searchPosts = async (database, { text, limit = 0, skip = 0 }) => {
   return posts
 }
 
-const addPost = async (database, input) => {
+const addPost = async (database, input, { user }) => {
+  if(!user){
+    throw Error('You must sign in to add post')
+  }
   const collection = database.collection('posts')
   input.date = new Date()
+  input.author = user._id
   const result = await collection.insertOne(input)
   const output = { _id: result.insertedId, ...input }
   output.date = output.date.toJSON()

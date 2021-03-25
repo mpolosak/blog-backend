@@ -26,6 +26,7 @@ const main = async () => {
             title: String
             content: String
             date: String
+            author: ID
         }
         type User{
             _id: ID
@@ -57,8 +58,8 @@ const main = async () => {
     searchPosts: (params) => {
       return searchPosts(database, params)
     },
-    addPost: (input) => {
-      return addPost(database, input)
+    addPost: (input, request) => {
+      return addPost(database, input, request)
     },
     modifyPost: (input) => {
       return modifyPost(database, input)
