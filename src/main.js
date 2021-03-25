@@ -9,7 +9,7 @@ const { buildSchema } = require('graphql')
 const { getInfo } = require('./blog-info.js')
 const { getPost, searchPosts, addPost, modifyPost } = require('./posts.js')
 const { getUser, searchUsers } = require('./users.js')
-const { signUp } = require('./auth')
+const { signUp, signIn } = require('./auth')
 
 const main = async () => {
   const database = await require('./database.js').connect()
@@ -42,6 +42,7 @@ const main = async () => {
             addPost(title: String, content: String): Post
             modifyPost(_id: ID!, title: String, content: String): Post
             signUp(email: String!, password: String!): ID 
+            signIn(email: String!, password: String!): String
         }
     `)
   const root = {
@@ -68,6 +69,9 @@ const main = async () => {
     },
     signUp: (input) => {
       return signUp(database, input)
+    },
+    signIn: (input) => {
+      return signIn(database, input)
     }
   }
 
