@@ -8,7 +8,7 @@ const { buildSchema } = require('graphql')
 
 const { getInfo } = require('./blog-info.js')
 const { getPost, searchPosts, addPost, modifyPost } = require('./posts.js')
-const { getUser, searchUsers } = require('./users.js')
+const { getUser, searchUsers, modifyUser } = require('./users.js')
 const { signUp, signIn } = require('./auth')
 
 const jwt = require('express-jwt')
@@ -46,6 +46,7 @@ const main = async () => {
             modifyPost(_id: ID!, title: String, content: String): Post
             signUp(email: String!, password: String!): ID 
             signIn(email: String!, password: String!): String
+            modifyUser(_id: ID, name: String, description: String): User
         }
     `)
   const root = {
@@ -75,7 +76,10 @@ const main = async () => {
     },
     signIn: (input) => {
       return signIn(database, input)
-    }
+    },
+    modifyUser: (input, request) => {
+      return modifyUser(database, input, request)
+    } 
   }
 
   app.use(jwt({
