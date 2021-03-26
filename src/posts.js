@@ -33,15 +33,12 @@ const addPost = async (database, input, { user }) => {
   return output
 }
 
-const modifyPost = async (database, input, { user }) => {
+const modifyPost = async (database, { _id, ...input }, { user }) => {
   if( !user ){
     throw Error('You don`t have permisions to modify this post')
   }
   
   const collection = database.collection('posts')
-
-  const _id = input._id
-  delete input._id
 
   const author = await getPostAuthor(collection, _id)
 
